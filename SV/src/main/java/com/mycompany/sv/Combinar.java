@@ -7,12 +7,11 @@ public class Combinar {
     //clase que agrega las combinaciones nuevas, usa la clase Combination
     
     //Este método debe ser modificado para distintos "K"
-    public static ArrayList<ArrayList<Camara>> generarCombinaciones(ArrayList<Camara> camaras) {
+    public static ArrayList<ArrayList<Camara>> generarCombinaciones(ArrayList<Camara> camaras,int k) {
         int n = camaras.size();
-        int k = 1;
         Combination comb = new Combination();
 
-        ArrayList<ArrayList<Integer>> combinaciones = comb.combine(n, 4);
+        ArrayList<ArrayList<Integer>> combinaciones = comb.combine(n, k);
         //comb.mostrarCombinaciones(combinaciones);
 
         ArrayList<ArrayList<Camara>> combinadas = agregarNuevas(combinaciones, camaras);

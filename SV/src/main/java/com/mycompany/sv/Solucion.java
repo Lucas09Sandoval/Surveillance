@@ -13,15 +13,31 @@ public class Solucion {
 
     public void recibirCombinadas(ArrayList<ArrayList<Camara>> combinadas) {
 
-        String s = "";
+        /*siempre empieza desde la combinación de menor largo
+            al comprobar la combinacion recibida, si sigue siendo falso el 
+        "boleano" al terminar el for, significa que con esas camaras es 
+        imposible solucionar el problema todas las camaras
+         */
+        boolean boleano = false;
         for (int x = 0; x < combinadas.size(); x++) {
-            s = generarVector(combinadas.get(x));
+            boleano = generarVector(combinadas.get(x));
+            if (boleano == true) {
+                /*Si ocurre este if, no es necesario confirmar el resto de combinaciones,
+                pues esta combinadas.get(x) será la combinacion(o una de las combinaciones)
+                que soluciona el problema con menor largo*/
+                this.n = combinadas.get(x).size();
+                x = combinadas.size();
+            }
         }
-        System.out.println(s);
+        if (boleano == true) {
+            System.out.println(this.n);
+        } else {
+            System.out.println("impossible");
+        }
     }
 
     //Método que genera un vector boleano, que prueba si una combinación de camaras es una solución
-    public String generarVector(ArrayList<Camara> combinacion) {
+    public boolean generarVector(ArrayList<Camara> combinacion) {
         boolean[] vector = new boolean[this.n + 1];
         /*n+1, porque el vector se que crea incluye el 0, 
         cosa que no queremos comprobar*/
@@ -55,20 +71,7 @@ public class Solucion {
         }
 
         boolean solucion = comprobarVector(vector);
-        if (solucion) {
-            try {
-                if (this.n > combinacion.size()) {
-                    n = combinacion.size();
-                } else {
-                    n = n;//no cambiara su valor
-                }
-            } catch (Exception e) {
-                this.n = combinacion.size();
-            }
-            return String.valueOf(this.n);
-        } else {
-            return "impossible";
-        }
+        return solucion;
     }
 
     //método que comprueba si es solución o no
