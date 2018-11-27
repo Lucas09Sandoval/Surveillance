@@ -2,24 +2,27 @@ package com.mycompany.sv;
 
 import static com.mycompany.sv.Combinar.generarCombinaciones;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-        //camaras ingresadas por el usuario
-        Camara camara1 = new Camara(2, 1);
-        Camara camara2 = new Camara(3, 1);
         
-        //se agregan a una lista de camaras
-        ArrayList<Camara> camaras = new ArrayList<Camara>();
-        camaras.add(camara1);
-        camaras.add(camara2);
+        //primero que todo se debe obtener los datos del usuario
+        int[] vector = obtenerNK();
+        
+        int n= vector[0];
+        int k= vector[1];
 
+        ArrayList<Camara> camaras = obtenerCamaras(n, k);
+        
+        //mostrarCamaras(camaras);
+        
         /*objeto de la clase combinar, 
         para generar las combinaciones,
         usa a la clase combination*/
         Combinar comb = new Combinar();
-
+        
         //arraylist que guarda otro arraylist que son las combinaciones de camaras
         ArrayList<ArrayList<Camara>> combinaciones = new ArrayList<ArrayList<Camara>>();
         
@@ -27,9 +30,9 @@ public class Main {
         las nuevas combs obtenidas*/
 
         //k es el k del binomio de newton
-        for (int k = 1; k <= camaras.size(); k++) {
+        for (int x = 1; x <= camaras.size(); x++) {
 
-            aux = comb.generarCombinaciones(camaras, k);
+            aux = comb.generarCombinaciones(camaras, x);
             /*combinaciones en un principio esta vacio,
             asi que se llena con los diferentes C(n,k)
             por eso el for con "aux" de abajo
@@ -41,13 +44,65 @@ public class Main {
 
         }
         //muestra las combinaciones creadas
-        comb.mostrarCombinadas(combinaciones);
-
-        //aqui se comprueban las combs, para saber si es posible solucionar el problema
-        int n = 4;//4 muros
-        Solucion sol = new Solucion(4);
+        //comb.mostrarCombinadas(combinaciones);
+        
+        //se debe probar la sucion para n muros
+        Solucion sol = new Solucion(n);
         //aqui se imprime si es posible o no
         sol.recibirCombinadas(combinaciones);
+
+    }
+    
+    //muros (n) y total de camaras (k)
+    private static int[] obtenerNK(){
+        Scanner sc = new Scanner(System.in);
+        String[] datosNK = (sc.nextLine()).split(" ");
+        int[] vector= new int[2];
+        vector[0] = Integer.parseInt(datosNK[0]);
+        vector[1] = Integer.parseInt(datosNK[1]);
+        
+        return vector;
+    }
+
+    //datos ingresados por un usuario en cada camara (a y b)
+    private static ArrayList<Camara> obtenerCamaras(int n, int k) {
+        Scanner sc = new Scanner(System.in);
+
+        ArrayList<Camara> camaras = new ArrayList<Camara>();
+
+        String[] datosAB;
+        int a;
+        int b;
+        Camara camara;
+
+        for (int x = 0; x < k; x++) {
+            do {
+                sc = new Scanner(System.in);
+                datosAB = (sc.nextLine()).split(" ");
+
+                a = Integer.parseInt(datosAB[0]);
+                b = Integer.parseInt(datosAB[1]);
+
+                camara = new Camara(a, b);
+
+                if (n < a || n < b) {
+                    System.out.println("a y b no puede ser mayor que n");
+                }
+
+            } while (n < a || n < b);
+            camaras.add(camara);
+
+        }
+
+        return camaras;
+    }
+
+    /*------------------------------------------------*/
+    //método para mostrar contenido
+    private static void mostrarCamaras(ArrayList<Camara> camaras) {
+        for (int x = 0; x < camaras.size(); x++) {
+            System.out.println("(" + (x + 1) + ") " + camaras.get(x).getA() + "," + camaras.get(x).getB());
+        }
     }
 
 }
