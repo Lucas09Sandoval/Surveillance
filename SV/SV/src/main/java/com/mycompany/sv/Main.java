@@ -41,9 +41,9 @@ public class Main {
             }
         }
         //muestra las combinaciones creadas
-        //comb.mostrarCombinadas(combinaciones);
+        //Combinar.mostrarCombinadas(combinaciones);
         
-        //se debe probar la sucion para n muros
+        //se debe probar la solucion para n muros
         Solucion sol = new Solucion(n);
         //aqui se imprime si es posible o no
         sol.recibirCombinadas(combinaciones);
