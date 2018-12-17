@@ -49,7 +49,7 @@ public class testProblemas {
     
 
     @Test
-    public void testFiltrar() {
+    public void testProblema1() {
 
         int n = 8;//muros
         
@@ -75,7 +75,7 @@ public class testProblemas {
     }
     
     @Test
-    public void testFiltrar2() {
+    public void testProblema2() {
 
         int n = 9;//muros
         
