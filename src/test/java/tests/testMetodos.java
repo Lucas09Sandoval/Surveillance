@@ -40,7 +40,8 @@ public class testMetodos {
 
         int esperado = 3;//la segunda contiene a la primera, por eso se reduce en 1
         ArrayList<Camara> filtradas = Filtro.filtrar(camaras, 10);
-        //el 4 de aqui es la cantidad de muros a tomar encuenta, es necesario para camaras (a>b)
+        //el 10 de aqui es la cantidad de muros a tomar encuenta
+        //es necesario para las camaras (a>b)
         int resultado = filtradas.size();
 
         assertEquals(esperado, resultado);
